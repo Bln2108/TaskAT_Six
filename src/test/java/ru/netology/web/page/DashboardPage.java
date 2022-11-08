@@ -20,26 +20,37 @@ public class DashboardPage {
         $("h1").shouldHave(Condition.text("Ваши карты"));
     }
 
-    public List<String> getCardIdList() {
-        return cards.stream()
-                .map(element ->
-                        element.getAttribute("data-test-id"))
-                .collect(Collectors.toList());
-    }
-
-    public int getCardBalance(String cardId) {
-        String text = cards.find(Condition.attribute("data-test-id", cardId)).text();
+    public int getCardBalance(int index) {
+        String text = cards.get(index).text();
         int begin = text.indexOf(BALANCE_BEGIN);
         int end = text.indexOf(BALANCE_END);
 
         return Integer.parseInt(text.substring(begin + BALANCE_BEGIN.length(), end));
     }
 
-    public CardPage transfer(String cardId) {
-        cards.find(Condition.attribute("data-test-id", cardId))
+    public int getFirstCardBalance() {
+        return getCardBalance(0);
+    }
+
+    public int getSecondCardBalance() {
+        return getCardBalance(1);
+    }
+
+    public CardPage validCard(int index) {
+        cards.get(index)
                 .find(By.cssSelector("button"))
                 .click();
 
         return new CardPage();
     }
+
+    public CardPage validFirstCard() {
+        return validCard(0);
+    }
+
+    public CardPage validSecondCard() {
+        return validCard(1);
+    }
 }
+
+

@@ -2,6 +2,7 @@ package ru.netology.web.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import ru.netology.web.data.DataHelper;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -14,14 +15,10 @@ public class CardPage {
         $("h1").shouldHave(Condition.text("Пополнение карты"));
     }
 
-    public DashboardPage validTransfer(
-            int amount,
-            String from
-    ) {
-        amountField.sendKeys(Integer.toString(amount));
-        fromField.sendKeys(from);
+    public DashboardPage validTransfer(DataHelper.TransferInfo transferInfo) {
+        amountField.sendKeys(Integer.toString(transferInfo.getAmount()));
+        fromField.sendKeys(transferInfo.getFrom());
         transferButton.click();
-
         return new DashboardPage();
     }
 }
