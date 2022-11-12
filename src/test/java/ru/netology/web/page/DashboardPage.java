@@ -4,9 +4,6 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import org.openqa.selenium.By;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -28,14 +25,6 @@ public class DashboardPage {
         return Integer.parseInt(text.substring(begin + BALANCE_BEGIN.length(), end));
     }
 
-    public int getFirstCardBalance() {
-        return getCardBalance(0);
-    }
-
-    public int getSecondCardBalance() {
-        return getCardBalance(1);
-    }
-
     public CardPage validCard(int index) {
         cards.get(index)
                 .find(By.cssSelector("button"))
@@ -43,14 +32,4 @@ public class DashboardPage {
 
         return new CardPage();
     }
-
-    public CardPage validFirstCard() {
-        return validCard(0);
-    }
-
-    public CardPage validSecondCard() {
-        return validCard(1);
-    }
 }
-
-

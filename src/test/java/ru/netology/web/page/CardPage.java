@@ -19,6 +19,7 @@ public class CardPage {
         amountField.sendKeys(Integer.toString(transferInfo.getAmount()));
         fromField.sendKeys(transferInfo.getFrom());
         transferButton.click();
+
         return new DashboardPage();
     }
 }

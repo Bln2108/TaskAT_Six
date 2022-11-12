@@ -17,20 +17,23 @@ class MoneyTransferTest {
         var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
         var dashboardPage = verificationPage.validVerify(verificationCode);
 
-        var firstCardBalance = dashboardPage.getFirstCardBalance();
-        var secondCardBalance = dashboardPage.getSecondCardBalance();
+        var firstCardBalance = dashboardPage.getCardBalance(0);
+        var secondCardBalance = dashboardPage.getCardBalance(1);
 
-        var firstCardPage = dashboardPage.validFirstCard();
+        var cardPage = dashboardPage.validCard(0);
         var amount = 10;
         var dashboardPage1 =
-                firstCardPage.validTransfer(DataHelper.getTransferFromSecondCard(amount));
+                cardPage.validTransfer(DataHelper.getTransferInfo(
+                        amount,
+                        DataHelper.getSecondCardNumber()
+                ));
         Assertions.assertEquals(
                 firstCardBalance + amount,
-                dashboardPage1.getFirstCardBalance()
+                dashboardPage1.getCardBalance(0)
         );
         Assertions.assertEquals(
                 secondCardBalance - amount,
-                dashboardPage1.getSecondCardBalance()
+                dashboardPage1.getCardBalance(1)
         );
     }
 
@@ -43,20 +46,23 @@ class MoneyTransferTest {
         var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
         var dashboardPage = verificationPage.validVerify(verificationCode);
 
-        var firstCardBalance = dashboardPage.getFirstCardBalance();
-        var secondCardBalance = dashboardPage.getSecondCardBalance();
+        var firstCardBalance = dashboardPage.getCardBalance(0);
+        var secondCardBalance = dashboardPage.getCardBalance(1);
 
-        var secondCardPage = dashboardPage.validSecondCard();
-        var amount = 5000;
+        var cardPage = dashboardPage.validCard(1);
+        var amount = 50;
         var dashboardPage1 =
-                secondCardPage.validTransfer(DataHelper.getTransferFromFirstCard(amount));
+                cardPage.validTransfer(DataHelper.getTransferInfo(
+                        amount,
+                        DataHelper.getFirstCardNumber()
+                ));
         Assertions.assertEquals(
                 firstCardBalance - amount,
-                dashboardPage1.getFirstCardBalance()
+                dashboardPage1.getCardBalance(0)
         );
         Assertions.assertEquals(
                 secondCardBalance + amount,
-                dashboardPage1.getSecondCardBalance()
+                dashboardPage1.getCardBalance(1)
         );
     }
 
@@ -69,19 +75,22 @@ class MoneyTransferTest {
         var verificationCode = DataHelper.getVerificationCodeFor(authInfo);
         var dashboardPage = verificationPage.validVerify(verificationCode);
 
-        var firstCardBalance = dashboardPage.getFirstCardBalance();
-        var secondCardBalance = dashboardPage.getSecondCardBalance();
+        var firstCardBalance = dashboardPage.getCardBalance(0);
+        var secondCardBalance = dashboardPage.getCardBalance(1);
 
-        var firstCardPage = dashboardPage.validFirstCard();
+        var cardPage = dashboardPage.validCard(0);
         var dashboardPage1 =
-                firstCardPage.validTransfer(DataHelper.getTransferFromFirstCard(100));
+                cardPage.validTransfer(DataHelper.getTransferInfo(
+                        100,
+                        DataHelper.getFirstCardNumber()
+                ));
         Assertions.assertEquals(
                 firstCardBalance,
-                dashboardPage1.getFirstCardBalance()
+                dashboardPage1.getCardBalance(0)
         );
         Assertions.assertEquals(
                 secondCardBalance,
-                dashboardPage1.getSecondCardBalance()
+                dashboardPage1.getCardBalance(1)
         );
     }
 }

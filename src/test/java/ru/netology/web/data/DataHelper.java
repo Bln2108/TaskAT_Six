@@ -13,7 +13,6 @@ public class DataHelper {
     }
 
     public static AuthInfo getAuthInfo() {
-
         return new AuthInfo("vasya", "qwerty123");
     }
 
@@ -40,17 +39,7 @@ public class DataHelper {
         String from;
     }
 
-    public static TransferInfo getTransferFromFirstCard(int amount) {
-        return new TransferInfo(
-                amount,
-                getFirstCardNumber()
-        );
-    }
-
-    public static TransferInfo getTransferFromSecondCard(int amount) {
-        return new TransferInfo(
-                amount,
-                getSecondCardNumber()
-        );
+    public static TransferInfo getTransferInfo(int amount, String cardNumber) {
+        return new TransferInfo(amount, cardNumber);
     }
 }
